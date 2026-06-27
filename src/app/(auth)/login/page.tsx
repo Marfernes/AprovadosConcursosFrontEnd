@@ -11,27 +11,38 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    async function handleLogin() {
-        try {
-            const res = await api.post(
-                "/auth/login",
-                { email, password },
-                { withCredentials: true } // 🔥 ESSENCIAL
-            );
+  async function handleLogin() {
+    try {
+        const res = await api.post("/auth/login", {
+            email,
+            password
+        });
 
-            const role = res.data.role;
+        console.log("LOGIN RESPONSE:", res.data);
 
-            if (role === "Admin") {
-                router.push("/admin");
-            } else {
-                router.push("/dashboard");
-            }
+        const token = res.data.token;
 
-        } catch (err) {
-            console.error(err);
-            alert("Erro no login");
+        if (!token) {
+            throw new Error("Token não retornado pelo backend");
         }
+
+        localStorage.setItem("token", token);
+
+        console.log("TOKEN SALVO:", token);
+
+        const role = res.data.role;
+
+        if (role === "Admin") {
+            router.push("/admin");
+        } else {
+            router.push("/dashboard");
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("Erro no login");
     }
+}
     return (
         <div className={styles.page}>
             <div className={styles.container}>

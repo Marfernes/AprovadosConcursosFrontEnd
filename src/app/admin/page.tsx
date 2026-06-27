@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import styles from "./admin.module.scss";
+import Link from "next/link";
 
 import {
     FileText,
@@ -37,10 +38,10 @@ export default function AdminPage() {
                 </div>
 
                 <nav className={styles.menu}>
-                    <div className={styles.menuItem}>
+                    <Link href="/admin/editais" className={styles.menuItem}>
                         <FileText size={20} />
                         <span>Editais</span>
-                    </div>
+                    </Link>
 
                     <div className={styles.menuItem}>
                         <Users size={20} />

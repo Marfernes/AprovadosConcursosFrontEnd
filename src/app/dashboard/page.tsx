@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.scss";
 import { api } from "@/services/api";
+import EditaisAbertos from "./components/EditaisAbertos";
 import {
   LayoutDashboard,
   BookOpen,
@@ -46,7 +47,6 @@ export default function DashboardPage() {
       {/* SIDEBAR */}
       <aside className={`${styles.sidebar} ${!isOpen ? styles.closed : ""}`}>
 
-        {/* TOPO */}
         <div className={styles.logoSection}>
           <div className={styles.logo}>
             <h2>{isOpen ? "Aprovados" : "AP"}</h2>
@@ -60,66 +60,53 @@ export default function DashboardPage() {
           </button>
         </div>
 
-        {/* MENU */}
         <nav className={styles.menu}>
-
-          <a className={styles.item}>
-            <LayoutDashboard size={20} />
-            {isOpen && "Dashboard"}
-          </a>
-
-          <a className={styles.item}>
-            <BookOpen size={20} />
-            {isOpen && "Questões"}
-          </a>
-
-          <a className={styles.item}>
-            <ClipboardList size={20} />
-            {isOpen && "Simulados"}
-          </a>
-
-          <a className={styles.item}>
-            <BarChart3 size={20} />
-            {isOpen && "Desempenho"}
-          </a>
-
-          <a className={styles.item}>
-            <TrendingUp size={20} />
-            {isOpen && "Estatísticas"}
-          </a>
-
+          <a className={styles.item}><LayoutDashboard size={20} />{isOpen && "Dashboard"}</a>
+          <a className={styles.item}><BookOpen size={20} />{isOpen && "Questões"}</a>
+          <a className={styles.item}><ClipboardList size={20} />{isOpen && "Simulados"}</a>
+          <a className={styles.item}><BarChart3 size={20} />{isOpen && "Desempenho"}</a>
+          <a className={styles.item}><TrendingUp size={20} />{isOpen && "Estatísticas"}</a>
         </nav>
 
-        {/* FOOTER */}
         <div className={styles.footer}>
-
-          <a className={styles.item}>
-            <User size={20} />
-            {isOpen && "Perfil"}
-          </a>
-
-          <a className={styles.item}>
-            <Settings size={20} />
-            {isOpen && "Configurações"}
-          </a>
+          <a className={styles.item}><User size={20} />{isOpen && "Perfil"}</a>
+          <a className={styles.item}><Settings size={20} />{isOpen && "Configurações"}</a>
 
           <button className={styles.logout} onClick={logout}>
             <LogOut size={20} />
             {isOpen && "Sair"}
           </button>
-
         </div>
 
       </aside>
-      {/* CONTEÚDO PRINCIPAL */}
+
+      {/* CONTEÚDO */}
       <main className={styles.content}>
-        <h1>Dashboard</h1>
 
-        <div className={styles.card}>
-          Bem-vindo ao sistema Aprovados Concursos 🎯
+        {/* HEADER NOVO */}
+        <div className={styles.header}>
+          <h1>Dashboard</h1>
+          <p>Bem-vindo ao sistema Aprovados Concursos 🎯</p>
         </div>
-      </main>
 
+        <div className={styles.main}>
+
+          {/* CARD BOAS-VINDAS */}
+          <div className={styles.welcomeCard}>
+            <h2>Seu desempenho começa aqui 🚀</h2>
+            <p>
+              Acompanhe editais, resolva questões e aumente suas chances de aprovação.
+            </p>
+          </div>
+
+          {/* CARROSSEL */}
+          <div className={styles.carouselArea}>
+            <EditaisAbertos />
+          </div>
+
+        </div>
+
+      </main>
     </div>
   );
 }
